@@ -17,6 +17,7 @@ GameBoard::GameBoard(sf::RenderWindow *newWindow, unsigned int width)
 // Destructor
 GameBoard::~GameBoard()
 {
+    delete this->window;
 }
 
 // Get the number of rows

@@ -19,6 +19,7 @@ Tile::Tile(unsigned int x, unsigned int y, unsigned int newWidth)
 // Destructor
 Tile::~Tile()
 {
+    delete this->shape;
 }
 
 // Draw the tile
@@ -53,6 +54,7 @@ void Tile::setCurrentState(bool state)
     this->alive = state;
 }
 
+// Update the the current state of the tile to the next state
 void Tile::updateState()
 {   
     if (this->nextState)

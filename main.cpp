@@ -20,5 +20,9 @@ int main()
 
     gameBoard->initialise();
     gameBoard->run();
+
+
+    delete gameBoard;
+    delete window;
     return 0;
 }

@@ -22,6 +22,7 @@ public:
     unsigned int getWidth();
     bool isAlive();
 
+    // Draw the tile onto the window
     void draw(sf::RenderWindow &window);
 
     // Update the current state of the tile to the next state
