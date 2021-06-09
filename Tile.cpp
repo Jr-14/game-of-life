@@ -8,11 +8,11 @@ Tile::Tile(unsigned int x, unsigned int y, unsigned int newWidth)
     this->yPos = y;
     this->width = newWidth;
     this->alive = false;
-    this->color = sf::Color::White;
+    this->color = sf::Color::Black;
     this->shape = new sf::RectangleShape(sf::Vector2f(this->width, this->width));
     this->shape->setPosition(sf::Vector2f(this->xPos, yPos));
-    this->shape->setOutlineColor(sf::Color::Black);
-    this->shape->setOutlineThickness(2.0f);
+    this->shape->setOutlineColor(sf::Color(50,50,50));
+    this->shape->setOutlineThickness(1.0f);
     this->shape->setFillColor(this->color);
 }
 
@@ -70,11 +70,11 @@ void Tile::determineColor()
 {
     if (this->alive)
     {
-        this->color = sf::Color::Black;
+        this->color = sf::Color(80,160,220);
     }
     else
     {
-        this->color = sf::Color::White;
+        this->color = sf::Color::Black;
     }
 }
 
