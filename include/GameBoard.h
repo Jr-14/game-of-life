@@ -52,6 +52,10 @@ public:
 
     // Clear the game board and reset the tile states
     void clear();
+
+private:
+    // Get the position of the mouse click relative to the size of the window
+    void getMouseClickPos();
 };
 
 

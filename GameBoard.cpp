@@ -34,9 +34,15 @@ unsigned int GameBoard::getTileSize()
 void GameBoard::setTileToAlive()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
-    unsigned int j = mousePos.x / this->tileSize;
-    unsigned int i = mousePos.y / this->tileSize;
+
+    // Calculate tilesize
+    float xSize = (float)this->window->getSize().x / (float)this->cols;
+    float ySize = (float)this->window->getSize().y / (float)this->rows;
+    unsigned int j = mousePos.x / xSize;
+    unsigned int i = mousePos.y / ySize;
+
     tiles[i][j].setCurrentState(true);
+
     std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now alive" << std::endl;
 }
 
@@ -44,9 +50,16 @@ void GameBoard::setTileToAlive()
 void GameBoard::setTileToDead()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
-    unsigned int j = mousePos.x / this->tileSize;
-    unsigned int i = mousePos.y / this->tileSize;
+
+
+    // Calculate tilesize
+    float xSize = (float)this->window->getSize().x / (float)this->cols;
+    float ySize = (float)this->window->getSize().y / (float)this->rows;
+    unsigned int j = mousePos.x / xSize;
+    unsigned int i = mousePos.y / ySize;
+
     tiles[i][j].setCurrentState(false);
+
     std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now dead" << std::endl;
 }
 
@@ -257,4 +270,10 @@ void GameBoard::run()
             window->display();
         }
     }
+}
+
+void GameBoard::getMouseClickPos()
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+    std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << std::endl;
 }
