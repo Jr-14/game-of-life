@@ -49,6 +49,9 @@ public:
 
     // Run Simulation
     void startSimulation();
+
+    // Clear the game board and reset the tile states
+    void clear();
 };
 
 

@@ -97,6 +97,19 @@ void GameBoard::updateTilesToNextState()
     }
 }
 
+// Resets the GameBoard
+void GameBoard::clear()
+{
+    // Loop through the game board and resets the tile states 
+    for (int i = 0; i < this->tiles.size(); i++)
+    {
+        for (int j = 0; j < this->tiles[i].size(); j++)
+        {   
+            tiles[i][j].setCurrentState(false);
+        }
+    }
+}
+
 // Determine the next states of the tiles based on the game rules
 void GameBoard::determineNextStates()
 {
@@ -194,10 +207,19 @@ void GameBoard::run()
                         std::cout << "Simulation is now running\n";
                         isSimulationRunning = true;
                     }
-                    else if (event.key.code = sf::Keyboard::S)
+                    else if (event.key.code == sf::Keyboard::S)
                     {
                         std::cout << "Simulation has stopped running\n";
                         isSimulationRunning = false;
+                    }
+                    else if (event.key.code == sf::Keyboard::C)
+                    {   
+                        // Stop the simulat if it's running
+                        if (isSimulationRunning)
+                        {
+                            isSimulationRunning = false;
+                        }
+                        clear();
                     }
                     break;
                 case sf::Event::MouseButtonPressed:
@@ -217,7 +239,7 @@ void GameBoard::run()
         if (isSimulationRunning)
         {   
             sf::Time elapsed = clock.getElapsedTime();
-            if (elapsed.asMilliseconds() > 50)
+            if (elapsed.asMilliseconds() > 10)
             {
                 window->clear(sf::Color::Black);
                 update();
