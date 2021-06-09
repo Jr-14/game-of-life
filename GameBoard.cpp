@@ -51,7 +51,7 @@ void GameBoard::setTileToAlive()
     unsigned int iMax = tiles.size();
     unsigned int jMax = tiles[0].size();
 
-    if (i > iMax)
+    if (i >= iMax)
     {
         i = iMax - 1;
     } 
@@ -60,7 +60,7 @@ void GameBoard::setTileToAlive()
         i = 0;
     }
 
-    if (j > jMax)
+    if (j >= jMax)
     {
         j = jMax - 1;
     }
@@ -88,7 +88,7 @@ void GameBoard::setTileToDead()
     unsigned int iMax = tiles.size();
     unsigned int jMax = tiles[0].size();
 
-    if (i > iMax)
+    if (i >= iMax)
     {
         i = iMax - 1;
     } 
@@ -97,7 +97,7 @@ void GameBoard::setTileToDead()
         i = 0;
     }
 
-    if (j > jMax)
+    if (j >= jMax)
     {
         j = jMax - 1;
     }
