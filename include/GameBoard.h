@@ -13,11 +13,18 @@ private:
     unsigned int cols;
     unsigned int tileSize;
 
+    // boolean to determine if the simulation for the game of life is running
     bool isSimulationRunning;
+
+    // boolean to determine hold and drag of mouse buttons
+    bool isLeftMouseButtonRelased;
+    bool isRightMouseButtonReleased;
 
     sf::RenderWindow *window;
 
     std::vector<std::vector<Tile>> tiles;
+
+    
 public:
     // Constructor
     GameBoard(sf::RenderWindow *window, unsigned int width);

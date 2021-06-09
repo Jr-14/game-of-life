@@ -9,6 +9,9 @@ GameBoard::GameBoard(sf::RenderWindow *newWindow, unsigned int width)
     this->window = newWindow;
     this->tileSize = width;
     this->isSimulationRunning = false;
+
+    this->isLeftMouseButtonRelased = true;
+    this->isRightMouseButtonReleased = true;
 }
 
 // Destructor
@@ -45,9 +48,30 @@ void GameBoard::setTileToAlive()
     unsigned int j = mousePos.x / xSize;
     unsigned int i = mousePos.y / ySize;
 
+    unsigned int iMax = tiles.size();
+    unsigned int jMax = tiles[0].size();
+
+    if (i > iMax)
+    {
+        i = iMax - 1;
+    } 
+    else if (i < 0)
+    {
+        i = 0;
+    }
+
+    if (j > jMax)
+    {
+        j = jMax - 1;
+    }
+    else if (j < 0)
+    {
+        j = 0;
+    }
+
     tiles[i][j].setCurrentState(true);
 
-    std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now alive" << std::endl;
+    //std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now alive" << std::endl;
 }
 
 // Set the current clicked tile to Dead
@@ -61,9 +85,30 @@ void GameBoard::setTileToDead()
     unsigned int j = mousePos.x / xSize;
     unsigned int i = mousePos.y / ySize;
 
+    unsigned int iMax = tiles.size();
+    unsigned int jMax = tiles[0].size();
+
+    if (i > iMax)
+    {
+        i = iMax - 1;
+    } 
+    else if (i < 0)
+    {
+        i = 0;
+    }
+
+    if (j > jMax)
+    {
+        j = jMax - 1;
+    }
+    else if (j < 0)
+    {
+        j = 0;
+    }
+
     tiles[i][j].setCurrentState(false);
 
-    std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now dead" << std::endl;
+    //std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now dead" << std::endl;
 }
 
 // Determine the number of tiles in a row and column
@@ -241,13 +286,28 @@ void GameBoard::run()
                 case sf::Event::MouseButtonPressed:
                     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     {
+                        isLeftMouseButtonRelased = false;
                         setTileToAlive();
                     }
                     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                    {
+                    {   
+                        isRightMouseButtonReleased = false;
                         setTileToDead();
                     }
                     break;
+                case sf::Event::MouseButtonReleased:
+                    isLeftMouseButtonRelased = true;
+                    isRightMouseButtonReleased = true;
+                    break;
+                case sf::Event::MouseMoved:
+                    if (!isLeftMouseButtonRelased)
+                    {
+                        setTileToAlive();
+                    }
+                    else if (!isRightMouseButtonReleased)
+                    {
+                        setTileToDead();
+                    }
             }
         }
 
@@ -255,7 +315,7 @@ void GameBoard::run()
         if (isSimulationRunning)
         {   
             sf::Time elapsed = clock.getElapsedTime();
-            if (elapsed.asMilliseconds() > 10)
+            if (elapsed.asMilliseconds() > 25)
             {
                 window->clear(sf::Color::Black);
                 drawTiles();
