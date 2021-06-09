@@ -30,7 +30,7 @@ public:
     unsigned int getTileSize();
 
     // Update the game board
-    void update();
+    void drawTiles();
 
     // Run the Window
     void initialise();

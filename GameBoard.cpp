@@ -1,6 +1,6 @@
 #include "GameBoard.h"
 
-
+// Constructor
 GameBoard::GameBoard(sf::RenderWindow *newWindow, unsigned int width)
 {   
     // Determine the number of rows and columns in the game board
@@ -11,20 +11,24 @@ GameBoard::GameBoard(sf::RenderWindow *newWindow, unsigned int width)
     this->isSimulationRunning = false;
 }
 
+// Destructor
 GameBoard::~GameBoard()
 {
 }
 
+// Get the number of rows
 unsigned int GameBoard::getNumberOfRows()
 {
     return this->rows;
 }
 
+// Get the number of columns
 unsigned int GameBoard::getNumberOfColumns()
 {
     return this->cols;
 }
 
+// Get the size of the Tiles
 unsigned int GameBoard::getTileSize()
 {
     return this->tileSize;
@@ -50,7 +54,6 @@ void GameBoard::setTileToAlive()
 void GameBoard::setTileToDead()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
-
 
     // Calculate tilesize
     float xSize = (float)this->window->getSize().x / (float)this->cols;
@@ -85,7 +88,7 @@ void GameBoard::initialise()
 }
 
 // Update the game board with the new tile states
-void GameBoard::update()
+void GameBoard::drawTiles()
 {
     // Loop through creating 
     for (int i = 0; i < this->tiles.size(); i++)
@@ -189,7 +192,6 @@ void GameBoard::determineNextStates()
     }
 }
 
-
 // Run the game board
 void GameBoard::run()
 {   
@@ -233,6 +235,7 @@ void GameBoard::run()
                             isSimulationRunning = false;
                         }
                         clear();
+                        std::cout << "The Board has been cleared\n";
                     }
                     break;
                 case sf::Event::MouseButtonPressed:
@@ -255,7 +258,7 @@ void GameBoard::run()
             if (elapsed.asMilliseconds() > 10)
             {
                 window->clear(sf::Color::Black);
-                update();
+                drawTiles();
                 window->display();
                 determineNextStates();
                 updateTilesToNextState();
@@ -266,12 +269,13 @@ void GameBoard::run()
         {
             // Display the Window
             window->clear(sf::Color::Black);
-            update();
+            drawTiles();
             window->display();
         }
     }
 }
 
+// Get the position of the Mouse click relative to the size of the window
 void GameBoard::getMouseClickPos()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
