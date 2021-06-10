@@ -70,7 +70,7 @@ void GameBoard::setTileToAlive()
         j = 0;
     }
 
-    tiles[i][j].setCurrentState(true);
+    tiles[i][j]->setCurrentState(true);
 
     //std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now alive" << std::endl;
 }
@@ -107,7 +107,7 @@ void GameBoard::setTileToDead()
         j = 0;
     }
 
-    tiles[i][j].setCurrentState(false);
+    tiles[i][j]->setCurrentState(false);
 
     //std::cout << "Mouse was clicked at " << mousePos.x << ", " << mousePos.y << ". The tile is now dead" << std::endl;
 }
@@ -121,12 +121,13 @@ void GameBoard::initialise()
     for (unsigned int i = 0; i <= this->rows; i++)
     {
         unsigned int x = 0;
-        std::vector<Tile> rowTile;
+        std::vector<Tile*> rowTile;
         for (unsigned int j = 0; j <= this->cols; j++)
         {
-            Tile tile(x, y, width);
+            Tile *tile = new Tile(x, y, width);
             rowTile.push_back(tile);
             x += width;
+            // delete tile;
         }
         y += width;
         this->tiles.push_back(rowTile);
@@ -141,7 +142,7 @@ void GameBoard::drawTiles()
     {
         for (int j = 0; j < this->tiles[i].size(); j++)
         {   
-            tiles[i][j].draw(*this->window);
+            tiles[i][j]->draw(*this->window);
         }
     }
 }
@@ -154,7 +155,7 @@ void GameBoard::updateTilesToNextState()
     {
         for (int j = 0; j < this->tiles[i].size(); j++)
         {   
-            tiles[i][j].updateState();
+            tiles[i][j]->updateState();
         }
     }
 }
@@ -167,7 +168,7 @@ void GameBoard::clear()
     {
         for (int j = 0; j < this->tiles[i].size(); j++)
         {   
-            tiles[i][j].setCurrentState(false);
+            tiles[i][j]->setCurrentState(false);
         }
     }
 }
@@ -189,8 +190,8 @@ void GameBoard::determineNextStates()
     {
         for (int j = 0; j < this->tiles[i].size(); j++)
         {   
-            Tile currentTile = tiles[i][j];
-            currentTile.draw(*this->window);
+            Tile *currentTile = tiles[i][j];
+            currentTile->draw(*this->window);
 
             int numberOfAliveNeighbours = 0;
             // Determine the number of alive cells
@@ -204,8 +205,8 @@ void GameBoard::determineNextStates()
                     int yInd = j + y;
                     if (xInd > 0 && yInd > 0 && xInd < xMax && yInd < yMax && (x != 0 || y != 0))
                     {
-                        Tile neighbour = tiles[xInd][yInd];
-                        if (neighbour.isAlive())
+                        Tile *neighbour = tiles[xInd][yInd];
+                        if (neighbour->isAlive())
                         {
                             numberOfAliveNeighbours++;
                         }
@@ -213,27 +214,25 @@ void GameBoard::determineNextStates()
                 }
             }
 
+
             // Determine the next states of the Tiles
-            if (!currentTile.isAlive() && numberOfAliveNeighbours == 3)
+            if (!currentTile->isAlive() && numberOfAliveNeighbours == 3)
             {
                 // If the cell is dead, and has 3 or more neighbours 
                 // It becomes alive
-                currentTile.setNextState(true);
+                currentTile->setNextState(true);
             }
-            else if (currentTile.isAlive() && (numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3))
+            else if (currentTile->isAlive() && (numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3))
             {   
                 // If the cell is alive, and has 2 or 3 neighbours
                 // It's alive on the next state
-                currentTile.setNextState(true);
+                currentTile->setNextState(true);
             }
             else
             {   
                 // Every other cell dies
-                currentTile.setNextState(false);
+                currentTile->setNextState(false);
             }
-
-            // Set the current tile to the updated tile
-            tiles[i][j] = currentTile;
         }
     }
 }

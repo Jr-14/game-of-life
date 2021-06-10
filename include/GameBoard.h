@@ -22,7 +22,7 @@ private:
 
     sf::RenderWindow *window;
 
-    std::vector<std::vector<Tile>> tiles;
+    std::vector<std::vector<Tile*>> tiles;
 
     
 public:
