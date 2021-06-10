@@ -214,7 +214,6 @@ void GameBoard::determineNextStates()
                 }
             }
 
-
             // Determine the next states of the Tiles
             if (!currentTile->isAlive() && numberOfAliveNeighbours == 3)
             {
@@ -308,6 +307,7 @@ void GameBoard::run()
                     {
                         setTileToDead();
                     }
+                    break;
             }
         }
 
