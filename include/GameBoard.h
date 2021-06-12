@@ -57,7 +57,9 @@ public:
     // Run Simulation
     void startSimulation();
 
-    // Clear the game board and reset the tile states
+    //////////////////////////////////////////////////////////////////
+    /// \brief Clear the GameBoard
+    //////////////////////////////////////////////////////////////////
     void clear();
 
 private:
