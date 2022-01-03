@@ -240,6 +240,7 @@ void GameBoard::run()
 {   
     // Clock 
     sf::Clock clock;
+    unsigned int clockSpeed = 30; // clock speed in milliseconds
 
     // Main Game Loop
     while (this->window->isOpen())
@@ -314,7 +315,7 @@ void GameBoard::run()
         if (isSimulationRunning)
         {   
             sf::Time elapsed = clock.getElapsedTime();
-            if (elapsed.asMilliseconds() > 25)
+            if (elapsed.asMilliseconds() > clockSpeed)
             {
                 window->clear(sf::Color::Black);
                 drawTiles();
